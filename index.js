@@ -1,45 +1,96 @@
-/*
-1."кот" > "код"
-true: строка с символом, имеющим больший код в Unicode, считается "большей"
-2. "2" + 2 * "2"
-"24": 2 * "2" -> 4; "2" + 4 -> "24" приведение типов
-3. undefined == null
-true: при нестрогом сравнении JavaScript выполняет преобразование типов, и null и undefined считаются равными
-4. undefined != null
-false: предыдущий пример + !
-5. null == 0
-false: null рассматривается как "пустое" значение, которое не является числом
-6. 2 > "3"
-false: JavaScript преобразует строку в число
-7. null - false + true
-1: 0 - 0 + 1
-8. 1 / "l"
-NaN: 1/NaN
-9. "2" * "3"
-6: 2 * 3
-10. 4 + 5 + "O"
-90: 4 + 5 -> 9 + "0" преобразует к строке
+// 1.
+function square(number) {
+  return number * number;
+}
 
-11. "l" + 4 + 5
-"l45": "l" + 4 -> "l4" + 5 преобразует к строке
-12. "4" - 2
-2: преобразует к числу
-13. "4" - "4x"
-NaN: "4x" при преобразовании в число NaN
-14. “23” == 23
-true: преобразует к числу
-15. null == false
-false: при нестрогом сравнении null не равен ничему, кроме самого себя и undefined
-16. "-4 "/ 0 + 1
--Infinity: деление числа на 0
-17. null + 1
-1: null преобразуется в 0
-18. undefined + null
-0: 0 + 0
-19. 1 === “1”
-false: строгое равенство, разные типы
-20. “2” > 10
-false: см. пункт 6
-21. NaN == undefined
-false: NaN не равен ничему, включая сам себя
-*/
+// 2.
+function sum(a, b) {
+  return a + b;
+}
+
+// 3.
+function subtractAndDivide(a, b, c) {
+  return (a - b) / c;
+}
+
+// 4.
+function weekDay(number) {
+  const days = {
+    1: "Понедельник",
+    2: "Вторник",
+    3: "Среда",
+    4: "Четверг",
+    5: "Пятница",
+    6: "Суббота",
+    7: "Воскресенье"
+  };
+  
+  return days[number] || "Некорректный номер, введите число от 1 до 7";
+}
+
+// 5.
+function compareNumbers(number1, number2) {
+  return number1 === number2;
+}
+
+// 6.
+function isSumGreaterThanTen(number1, number2) {
+  return (number1 + number2) > 10;
+}
+
+// 7.
+function isNegative(number) {
+  return number < 0;
+}
+
+// 8.
+function isNumberInRange(number) {
+  return number > 0 && number < 10;
+}
+
+// 9.
+function getDigitsSum(number) {
+  return String(Math.abs(number))
+    .split('')
+    .map(Number)
+    .reduce((acc, digit) => acc + digit, 0);
+}
+
+// 10.
+function findYearsWithDigitSum(targetSum) {
+  const result = [];
+  for (let year = 1; year <= 2020; year++) {
+    if (getDigitsSum(year) === targetSum) {
+      result.push(year);
+    }
+  }
+  return result;
+}
+
+// 11.
+function isEven(number) {
+  return number % 2 === 0;
+}
+
+// 12.
+function getSingleDigitSum(number) {
+  let sum = number;
+  
+  while (sum > 9) {
+    sum = sum.toString().split('').reduce((acc, digit) => acc + parseInt(digit), 0);
+  }
+  
+  return sum;
+}
+
+// 13.
+const isPalindrome = str => {
+  const normalizedStr = str.toLowerCase().replace(/[^a-z0-9]/g, '');
+  return normalizedStr === normalizedStr.split('').reverse().join('');
+};
+
+
+
+
+
+
