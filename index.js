@@ -1,45 +1,114 @@
-/*
-1."кот" > "код"
-true: строка с символом, имеющим больший код в Unicode, считается "большей"
-2. "2" + 2 * "2"
-"24": 2 * "2" -> 4; "2" + 4 -> "24" приведение типов
-3. undefined == null
-true: при нестрогом сравнении JavaScript выполняет преобразование типов, и null и undefined считаются равными
-4. undefined != null
-false: предыдущий пример + !
-5. null == 0
-false: null рассматривается как "пустое" значение, которое не является числом
-6. 2 > "3"
-false: JavaScript преобразует строку в число
-7. null - false + true
-1: 0 - 0 + 1
-8. 1 / "l"
-NaN: 1/NaN
-9. "2" * "3"
-6: 2 * 3
-10. 4 + 5 + "O"
-90: 4 + 5 -> 9 + "0" преобразует к строке
+// 1.
+function stringToArray(str) {
+  return str.split(' ');
+}
 
-11. "l" + 4 + 5
-"l45": "l" + 4 -> "l4" + 5 преобразует к строке
-12. "4" - 2
-2: преобразует к числу
-13. "4" - "4x"
-NaN: "4x" при преобразовании в число NaN
-14. “23” == 23
-true: преобразует к числу
-15. null == false
-false: при нестрогом сравнении null не равен ничему, кроме самого себя и undefined
-16. "-4 "/ 0 + 1
--Infinity: деление числа на 0
-17. null + 1
-1: null преобразуется в 0
-18. undefined + null
-0: 0 + 0
-19. 1 === “1”
-false: строгое равенство, разные типы
-20. “2” > 10
-false: см. пункт 6
-21. NaN == undefined
-false: NaN не равен ничему, включая сам себя
-*/
+// 2.
+function removeChars(str, length) {
+  return str.substring(0, length);
+}
+
+// 3.
+function insertDash(str) {
+  return str.toUpperCase().replace(/ /g, '-');
+}
+
+// 4.
+function capitalizeFirstChar(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+// 5.
+function capitalize(str) {
+  return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+}
+
+// 6.
+function changeRegister(str) {
+  return str.split('').map(char => char === char.toUpperCase() ? char.toLowerCase() : char.toUpperCase()).join('');
+}
+
+// 7.
+function removeChar(str) {
+  return str.replace(/[^a-zA-Z0-9]/g, '');
+}
+
+// 8.
+function zeros(num, len) {
+  let str = num.toString();
+  while (str.length < len) {
+    str = '0' + str;
+  }
+  return (num >= 0 ? '+' : '-') + str;
+}
+
+// 9.
+function comparison(str1, str2) {
+  return str1.toLowerCase() === str2.toLowerCase();
+}
+
+// 10.
+function insensitiveSearch(str1, str2) {
+  return str1.toLowerCase().includes(str2.toLowerCase());
+}
+
+// 11.
+function initCap(str) {
+  return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('');
+}
+
+// 12.
+function initSnake(str) {
+  return str.replace(/([A-Z])/g, '_$1').toLowerCase();
+}
+
+// 13.
+function repeatStr(str, n) {
+  return str.repeat(n);
+}
+
+// 14.
+function path(pathname) {
+  return pathname.substring(pathname.lastIndexOf("\\") + 1);
+}
+
+// 15.
+function endsWith(str, substr) {
+  return str.endsWith(substr);
+}
+
+// 16.
+function getSubstr(str, char, pos) {
+  const index = str.indexOf(char);
+  return pos === 'after' ? str.substring(index + 1) : str.substring(0, index);
+}
+
+// 17.
+function insert(str, substr, pos = 0) {
+  return str.slice(0, pos) + substr + str.slice(pos);
+}
+
+// 18.
+function limitStr(str, n, symbol = '...') {
+  return str.length > n ? str.slice(0, n) + symbol : str;
+}
+
+// 19.
+function count(str, stringsearch) {
+  return (str.match(new RegExp(stringsearch, 'g')) || []).length;
+}
+
+// 20.
+function strip(str) {
+  return str.trim().replace(/\s+/g, ' ');
+}
+
+// 21.
+function cutString(str, n) {
+  return str.split(' ').slice(0, n).join(' ');
+}
+
+// 22.
+function findWord(word, str) {
+  return str.split(' ').includes(word);
+}
