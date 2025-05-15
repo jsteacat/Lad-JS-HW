@@ -1,45 +1,70 @@
-/*
-1."кот" > "код"
-true: строка с символом, имеющим больший код в Unicode, считается "большей"
-2. "2" + 2 * "2"
-"24": 2 * "2" -> 4; "2" + 4 -> "24" приведение типов
-3. undefined == null
-true: при нестрогом сравнении JavaScript выполняет преобразование типов, и null и undefined считаются равными
-4. undefined != null
-false: предыдущий пример + !
-5. null == 0
-false: null рассматривается как "пустое" значение, которое не является числом
-6. 2 > "3"
-false: JavaScript преобразует строку в число
-7. null - false + true
-1: 0 - 0 + 1
-8. 1 / "l"
-NaN: 1/NaN
-9. "2" * "3"
-6: 2 * 3
-10. 4 + 5 + "O"
-90: 4 + 5 -> 9 + "0" преобразует к строке
+// Заголовок страницы
+const header = document.createElement('h1');
+header.textContent = 'To Do List';
+document.body.appendChild(header);
 
-11. "l" + 4 + 5
-"l45": "l" + 4 -> "l4" + 5 преобразует к строке
-12. "4" - 2
-2: преобразует к числу
-13. "4" - "4x"
-NaN: "4x" при преобразовании в число NaN
-14. “23” == 23
-true: преобразует к числу
-15. null == false
-false: при нестрогом сравнении null не равен ничему, кроме самого себя и undefined
-16. "-4 "/ 0 + 1
--Infinity: деление числа на 0
-17. null + 1
-1: null преобразуется в 0
-18. undefined + null
-0: 0 + 0
-19. 1 === “1”
-false: строгое равенство, разные типы
-20. “2” > 10
-false: см. пункт 6
-21. NaN == undefined
-false: NaN не равен ничему, включая сам себя
-*/
+// Контейнер страницы
+const todoContainer = document.createElement('div');
+todoContainer.id = 'todo-container';
+document.body.appendChild(todoContainer);
+
+// Поле ввода
+const input = document.createElement('input');
+input.placeholder = 'Введите новую задачу';
+todoContainer.appendChild(input);
+
+// Кнопка добавления
+const addButton = document.createElement('button');
+addButton.textContent = 'Добавить';
+todoContainer.appendChild(addButton);
+
+// Список задач
+const todoList = document.createElement('ul');
+todoContainer.appendChild(todoList);
+
+// Сохранение в localStorage
+const saveTodos = (todos) => {
+  localStorage.setItem('todos', JSON.stringify(todos));
+};
+
+// Отображение задач
+const displayTodos = () => {
+  todoList.innerHTML = '';
+  const todos = JSON.parse(localStorage.getItem('todos')) || [];
+  todos.forEach((todo, index) => {
+    const li = document.createElement('li');
+    li.textContent = todo;
+    li.dataset.index = index; // Сохраняем индекс для удаления
+    todoList.appendChild(li);
+  });
+};
+
+// Добавление задачи
+const addTask = () => {
+  const currentTodo = input.value.trim();
+  if (currentTodo) {
+    const todos = JSON.parse(localStorage.getItem('todos')) || [];
+    todos.push(currentTodo);
+    saveTodos(todos);
+    input.value = '';
+    displayTodos();
+  }
+}
+
+// Удаление задачи
+const removeTask = (e) => {
+  if (e.target.tagName === 'LI') {
+    const index = e.target.dataset.index;
+    const todos = JSON.parse(localStorage.getItem('todos')) || [];
+    todos.splice(index, 1); // Удаляем выбранный элемент
+    saveTodos(todos);
+    displayTodos();
+  }
+}
+
+// Обработчики событий
+addButton.addEventListener('click', addTask);
+todoList.addEventListener('click', removeTask);
+
+// Загружаем задачи из localStorage при загрузке страницы
+displayTodos();
